@@ -63,30 +63,25 @@ Utilizando as tecnologias:
   ┃ ┃ ┗ 📜 settings.json
   ┃ ┃
   ┃ ┣ 📂 .expo
-  ┃ ┃ ┗ 📂 types
-  ┃ ┃   ┣ 📜 devices.json
-  ┃ ┃   ┗ 📜 README.md
+  ┃ ┃ ┣ 📂 types
+  ┃ ┃ ┣ 📜 devices.json
+  ┃ ┃ ┗ 📜 README.md
   ┃ ┃
   ┃ ┣ 📂 assets
-  ┃ ┃ ┗ 📂 types
+  ┃ ┃ ┗ 📂 images
   ┃ ┃   ┣ 📜 adaptive-icon.png
   ┃ ┃   ┣ 📜 favicon.png
   ┃ ┃   ┣ 📜 icon.png
   ┃ ┃   ┗ 📜 splash-icon.png
   ┃ ┃
   ┃ ┣ 📂 src
-  ┃ ┃ ┣ 📂 assets
-  ┃ ┃ ┃ ┣ 📜 lets-start-illustration.svg
-  ┃ ┃ ┃ ┗ 📜 logo-in-orbit.svg
-  ┃ ┃ ┃
   ┃ ┃ ┣ 📂 app
   ┃ ┃ ┃ ┣ 📜 _layout.tsx
   ┃ ┃ ┃ ┗ 📜 index.tsx
   ┃ ┃ ┃
-  ┃ ┃ ┣ 📂 styles
-  ┃ ┃ ┃ ┣ 📜 color.ts
-  ┃ ┃ ┃ ┣ 📜 font-family.ts
-  ┃ ┃ ┃ ┗ 📜 theme.ts
+  ┃ ┃ ┣ 📂 assets
+  ┃ ┃ ┃ ┣ 📜 lets-start-illustration.svg
+  ┃ ┃ ┃ ┗ 📜 logo-in-orbit.svg
   ┃ ┃ ┃
   ┃ ┃ ┣ 📂 components
   ┃ ┃ ┃ ┣ 📂 ui
@@ -118,6 +113,11 @@ Utilizando as tecnologias:
   ┃ ┃ ┃ ┗ 📂 summary.tsx
   ┃ ┃ ┃   ┣ 📜 styles.ts
   ┃ ┃ ┃   ┗ 📜 index.tsx
+  ┃ ┃ ┃
+  ┃ ┃ ┣ 📂 styles
+  ┃ ┃ ┃ ┣ 📜 color.ts
+  ┃ ┃ ┃ ┣ 📜 font-family.ts
+  ┃ ┃ ┃ ┗ 📜 theme.ts
   ┃ ┃ ┃
   ┃ ┃ ┗ 📂 http
   ┃ ┃   ┣ 📜 create-goal-completion.ts

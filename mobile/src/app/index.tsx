@@ -1,6 +1,8 @@
 import { EmptyGoals } from "@/components/empty-goals";
-import { View, Text } from "react-native";
+import { router } from "expo-router";
+import Summary from "./summary";
 
 export default function Index() {
-  return <EmptyGoals />;
+	const summaryTotal: number = 0;
+	return <>{summaryTotal > 0 ? <Summary /> : <EmptyGoals />}</>;
 }

@@ -15,6 +15,7 @@ import { s } from "./styles";
 import { Loading } from "@/components/loading";
 import { useQuery } from "@tanstack/react-query";
 import { getSummary } from "@/http/get-summary";
+import { CreateGoal } from "@/components/create-goal";
 
 dayjs.locale(ptBR);
 
@@ -145,6 +146,8 @@ export default function Summary() {
 					</ScrollView>
 				</View>
 			</View>
+
+			<CreateGoal />
 		</View>
 	);
 }

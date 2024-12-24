@@ -17,7 +17,9 @@ Utilizando as tecnologias:
 
 --
 
-<!-- - TanStack Query
+<!-- 
+- React Native Bottom Sheet
+- TanStack Query
 - React hook form,
 - Tailwind CSS,
 - Radix

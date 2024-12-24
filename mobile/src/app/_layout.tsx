@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "react-native";
-
-import { colors } from "@/styles/colors";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import {
 	useFonts,
@@ -11,8 +11,7 @@ import {
 	Rubik_600SemiBold,
 } from "@expo-google-fonts/rubik";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import { colors } from "@/styles/colors";
 import { Loading } from "@/components/loading";
 
 export default function Layout() {
@@ -33,12 +32,14 @@ export default function Layout() {
 		<>
 			<StatusBar barStyle={"light-content"} />
 			<QueryClientProvider client={queryClient}>
-				<Stack
-					screenOptions={{
-						headerShown: false,
-						contentStyle: { backgroundColor: colors.zinc[950] },
-					}}
-				/>
+				<GestureHandlerRootView style={{ flex: 1 }}>
+					<Stack
+						screenOptions={{
+							headerShown: false,
+							contentStyle: { backgroundColor: colors.zinc[950] },
+						}}
+					/>
+				</GestureHandlerRootView>
 			</QueryClientProvider>
 		</>
 	);

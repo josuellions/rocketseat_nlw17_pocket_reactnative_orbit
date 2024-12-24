@@ -6,7 +6,7 @@ export const s = StyleSheet.create({
 		flex: 1,
 		gap: 24,
 		padding: 8,
-		justifyContent: "center",
+		justifyContent: "flex-start",
 		alignItems: "center",
 	},
 
@@ -47,6 +47,7 @@ export const s = StyleSheet.create({
 	body: {
 		gap: 8,
 		flex: 1,
+		alignSelf: "stretch",
 		flexDirection: "column",
 	},
 	bodyHeaderContainer: {
@@ -75,9 +76,14 @@ export const s = StyleSheet.create({
 	summaryBody: {
 		flex: 1,
 		gap: 24,
+		marginTop: 32,
 		flexDirection: "column",
 		justifyContent: "flex-start",
 		alignItems: "flex-start",
+		alignSelf: "stretch",
+	},
+	summaryBodyScroll: {
+		gap: 24,
 	},
 
 	summaryBodyTitle: {

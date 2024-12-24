@@ -17,6 +17,7 @@ type ButtonProps = TouchableOpacityProps & {
 };
 
 type IconProps = {
+	disabled: boolean;
 	icon: React.ComponentType<LucideIconProps>;
 };
 
@@ -29,7 +30,6 @@ function ButtonOutline({
 	return (
 		<TouchableOpacity
 			activeOpacity={0.8}
-			disabled={isLoading}
 			style={[s.container, style]}
 			{...rest}
 		>
@@ -42,12 +42,14 @@ function ButtonOutline({
 	);
 }
 
-function Title({ children }: TextProps) {
-	return <Text style={s.title}>{children}</Text>;
+function Title({ children, disabled }: TextProps) {
+	return <Text style={[s.title, disabled && s.disabled]}>{children}</Text>;
 }
 
-function Icon({ icon: Icon }: IconProps) {
-	return <Icon size={16} color={colors.zinc[100]} />;
+function Icon({ icon: Icon, disabled }: IconProps) {
+	return (
+		<Icon size={16} color={disabled ? colors.zinc[600] : colors.zinc[100]} />
+	);
 }
 
 ButtonOutline.Title = Title;

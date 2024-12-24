@@ -1,5 +1,4 @@
-import { View, Text, Image, Alert } from "react-native";
-import { useEffect, useState } from "react";
+import { View, Text, Image, ScrollView, Dimensions } from "react-native";
 import dayjs from "dayjs";
 import ptBR from "dayjs/locale/pt-br";
 
@@ -13,7 +12,6 @@ import { colors } from "@/styles/colors";
 
 import { s } from "./styles";
 
-import { api } from "@/services/api";
 import { Loading } from "@/components/loading";
 import { useQuery } from "@tanstack/react-query";
 import { getSummary } from "@/http/get-summary";
@@ -35,6 +33,9 @@ export default function Summary() {
 	}
 
 	const completePercentage = Math.round((data.completed * 100) / data.total);
+	const screenHeight = Dimensions.get("window").height;
+	const scrollViewHeight = screenHeight * 0.5; // 70% da altura da tela
+
 	return (
 		<View style={s.container}>
 			<View style={s.header}>
@@ -73,7 +74,7 @@ export default function Summary() {
 
 				<PendingGoals />
 
-				<View style={s.summaryBody}>
+				{/*<View style={s.summaryBody}>
 					<Text style={s.summaryBodyTitle}>Sua semana</Text>
 
 					{Object.entries(data.goalsPerDay).map(([date, goals]) => (
@@ -104,6 +105,44 @@ export default function Summary() {
 							</View>
 						</View>
 					))}
+				</View>*/}
+
+				<View style={s.summaryBody}>
+					<Text style={s.summaryBodyTitle}>Sua semana</Text>
+					<ScrollView
+						contentContainerStyle={s.summaryBodyScroll}
+						showsVerticalScrollIndicator={false}
+						style={[{ height: scrollViewHeight }]}
+					>
+						{Object.entries(data.goalsPerDay).map(([date, goals]) => (
+							<View key={String(date)} style={s.summaryBodyContainer}>
+								<View style={s.summaryBodyHeader}>
+									<View style={s.summaryBodyHeaderTitle}>
+										<Text style={s.summaryBodyHeaderSubTitle}>
+											{dayjs(date).format("dddd")}
+										</Text>
+										<Text style={s.summaryBodyHeaderSubTitleDate}>
+											({dayjs(date).format("D[ de ] MMMM")})
+										</Text>
+									</View>
+								</View>
+
+								<View style={s.summarys}>
+									{goals.map((goal, index) => (
+										<View style={s.summary} key={String(index)}>
+											<CheckCircleIcon size={16} color={colors.violet[600]} />
+											<Text style={s.summaryText}>Você completou</Text>
+											<Text style={s.summaryTitle}>"{goal.title}"</Text>
+											<Text style={s.summaryText}>às</Text>
+											<Text style={s.summaryDate}>
+												{dayjs(goal.completedAt).format("HH:mm")}h
+											</Text>
+										</View>
+									))}
+								</View>
+							</View>
+						))}
+					</ScrollView>
 				</View>
 			</View>
 		</View>

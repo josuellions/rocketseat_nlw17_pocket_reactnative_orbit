@@ -3,7 +3,7 @@ import { colors, fontFamily } from "@/styles/theme";
 
 export const s = StyleSheet.create({
 	container: {
-		gap: 2,
+		gap: 4,
 		height: 44,
 		maxHeight: 44,
 		width: "auto",
@@ -23,5 +23,8 @@ export const s = StyleSheet.create({
 		fontSize: 12,
 		color: colors.zinc[100],
 		fontFamily: fontFamily.regular,
+	},
+	disabled: {
+		color: colors.zinc[600],
 	},
 });

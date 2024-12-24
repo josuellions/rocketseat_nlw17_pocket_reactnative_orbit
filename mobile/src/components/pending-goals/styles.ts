@@ -3,12 +3,18 @@ import { StyleSheet } from "react-native";
 
 export const s = StyleSheet.create({
 	container: {
-		gap: 8,
-		flex: 1,
-		flexWrap: "wrap",
+		//flex: 1,
+		//flexWrap: "wrap",
 		flexDirection: "row",
-		alignItems: "flex-start",
-		alignSelf: "stretch",
+		alignItems: "center",
+		//alignSelf: "stretch",
 		justifyContent: "space-between",
+		maxHeight: 52,
+		height: 52,
+		paddingHorizontal: 12,
+	},
+	content: {
+		alignItems: "center",
+		gap: 8,
 	},
 });

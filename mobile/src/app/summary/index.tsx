@@ -1,6 +1,8 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import ptBR from "dayjs/locale/pt-br";
 
-import { s } from "./styles";
 import { Button } from "@/components/ui/button";
 import { router } from "expo-router";
 import { Plus, CheckCircleIcon } from "lucide-react-native";
@@ -9,45 +11,63 @@ import Separator from "@/components/ui/separator";
 import PendingGoals from "@/components/pending-goals";
 import { colors } from "@/styles/colors";
 
+import { s } from "./styles";
+
+import { api } from "@/services/api";
+import { Loading } from "@/components/loading";
+
+dayjs.locale(ptBR);
+
 export default function Summary() {
-	const summarys = [
-		{ title: "Acordar cedo", completedAt: "09:32" },
-
-		{ title: "Me exercitar", completedAt: "19:32" },
-
-		{ title: "Meditar", completedAt: "20:32" },
-
-		// { title: "Tomar Água a cada 30min", completedAt: "09:32" },
-
-		// { title: "Não usar celular quando for dormir", completedAt: "23:32" },
-
-		// { title: "Evitar tomar café depois das 19h", completedAt: "18:52" },
-	];
-
-	const goalsPerDay = [
+	type GoalsPerDayProps = Record<
+		string,
 		{
-			date: "Domingo",
-			day: "22 de dezembro",
-			summarys,
-		},
-		{
-			date: "Segunda-feira",
-			day: "23 de dezembro",
-			summarys,
-		},
-		{
-			date: "Terça-feira",
-			day: "24 de dezembro",
-			summarys,
-		},
-	];
+			id: string;
+			title: string;
+			completedAt: string;
+		}[]
+	>;
 
+	interface SummaryProps {
+		completed: number;
+		total: number;
+		goalsPerDay: GoalsPerDayProps;
+	}
+
+	const [summarys, setSummarys] = useState<SummaryProps | null>(null);
+	const firstDayOfWeek = dayjs().startOf("week").format("D MMM");
+	const lastDayOfWeek = dayjs().endOf("week").format("D MMM");
+
+	async function fetchSummarys() {
+		try {
+			const response = await api.get("/summary");
+
+			setSummarys(response.data.summary);
+		} catch (error) {
+			console.log(error);
+			Alert.alert("Summary", "Não foi possível carregar as summary's!");
+		}
+	}
+
+	useEffect(() => {
+		fetchSummarys();
+	}, []);
+
+	if (!summarys) {
+		return <Loading />;
+	}
+
+	const completePercentage = Math.round(
+		(summarys.completed * 100) / summarys.total,
+	);
 	return (
 		<View style={s.container}>
 			<View style={s.header}>
 				<View style={s.headerContainer}>
 					<Image source={require("@/assets/icon.png")} style={s.logo} />
-					<Text style={s.headerTitle}>22 Dez - 28 Dez</Text>
+					<Text style={s.headerTitle}>
+						{`${firstDayOfWeek} - ${lastDayOfWeek}`}
+					</Text>
 				</View>
 				<Button
 					isLoading={false}
@@ -65,13 +85,13 @@ export default function Summary() {
 				<View style={s.bodyHeaderContainer}>
 					<View style={s.bodyContainerText}>
 						<Text style={s.bodyHeaderText}>Você completou</Text>
-						<Text style={s.bodyTextQuantidade}> 4 </Text>
+						<Text style={s.bodyTextQuantidade}> {summarys.completed} </Text>
 						<Text style={s.bodyHeaderText}>de</Text>
-						<Text style={s.bodyTextQuantidade}> 25 </Text>
+						<Text style={s.bodyTextQuantidade}> {summarys.total} </Text>
 						<Text style={s.bodyHeaderText}> metas nessa semana.</Text>
 					</View>
 
-					<Text style={s.bodyHeaderText}>17%</Text>
+					<Text style={s.bodyHeaderText}>{completePercentage}%</Text>
 				</View>
 
 				<Separator />
@@ -81,25 +101,29 @@ export default function Summary() {
 				<View style={s.summaryBody}>
 					<Text style={s.summaryBodyTitle}>Sua semana</Text>
 
-					{goalsPerDay.map((goal, index) => (
-						<View key={String(goal.date)} style={s.summaryBodyContainer}>
+					{Object.entries(summarys.goalsPerDay).map(([date, goals]) => (
+						<View key={String(date)} style={s.summaryBodyContainer}>
 							<View style={s.summaryBodyHeader}>
 								<View style={s.summaryBodyHeaderTitle}>
-									<Text style={s.summaryBodyHeaderSubTitle}>{goal.date}</Text>
+									<Text style={s.summaryBodyHeaderSubTitle}>
+										{dayjs(date).format("dddd")}
+									</Text>
 									<Text style={s.summaryBodyHeaderSubTitleDate}>
-										({goal.day})
+										({dayjs(date).format("D[ de ] MMMM")})
 									</Text>
 								</View>
 							</View>
 
 							<View style={s.summarys}>
-								{goal.summarys.map((summary, index) => (
+								{goals.map((goal, index) => (
 									<View style={s.summary} key={String(index)}>
 										<CheckCircleIcon size={16} color={colors.violet[600]} />
 										<Text style={s.summaryText}>Você completou</Text>
-										<Text style={s.summaryTitle}>"{summary.title}"</Text>
+										<Text style={s.summaryTitle}>"{goal.title}"</Text>
 										<Text style={s.summaryText}>às</Text>
-										<Text style={s.summaryDate}>{summary.completedAt}h</Text>
+										<Text style={s.summaryDate}>
+											{dayjs(goal.completedAt).format("HH:mm")}h
+										</Text>
 									</View>
 								))}
 							</View>

@@ -25,6 +25,7 @@ export const s = StyleSheet.create({
 	headerTitle: {
 		fontFamily: fontFamily.semiBold,
 		color: colors.zinc[100],
+		textTransform: "capitalize",
 		maxWidth: "auto",
 	},
 
@@ -105,7 +106,9 @@ export const s = StyleSheet.create({
 		alignItems: "baseline",
 	},
 	summaryBodyHeaderSubTitle: {
+		paddingRight: 4,
 		color: colors.zinc[100],
+		textTransform: "capitalize",
 		fontFamily: fontFamily.medium,
 	},
 	summaryBodyHeaderSubTitleDate: {

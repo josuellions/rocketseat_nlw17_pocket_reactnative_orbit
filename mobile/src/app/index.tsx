@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import Summary from "./summary";
 
 export default function Index() {
-	const summaryTotal: number = 0;
+	const summaryTotal: number = 10;
+
 	return <>{summaryTotal > 0 ? <Summary /> : <EmptyGoals />}</>;
 }

@@ -3,7 +3,8 @@ import { colors, fontFamily } from "@/styles/theme";
 
 export const s = StyleSheet.create({
 	container: {
-		gap: 14,
+		gap: 4,
+		margin: 36,
 		height: 56,
 		maxHeight: 56,
 		width: "60%",
@@ -11,12 +12,12 @@ export const s = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
-		margin: 36,
 		backgroundColor: colors.violet[500],
 	},
 	title: {
 		fontSize: 16,
 		color: colors.zinc[100],
+
 		fontFamily: fontFamily.semiBold,
 	},
 });

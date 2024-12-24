@@ -4,23 +4,27 @@ import { colors, fontFamily } from "@/styles/theme";
 export const s = StyleSheet.create({
 	container: {
 		flex: 1,
-		padding: 8,
 		gap: 24,
+		padding: 8,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 
 	header: {
+		flex: 1,
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
-		color: colors.zinc[100],
-		marginTop: 8,
+		alignSelf: "stretch",
+		maxHeight: 40,
 	},
 	headerContainer: {
+		flex: 1,
 		gap: 8,
 		maxWidth: "50%",
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "space-between",
+		justifyContent: "flex-start",
 	},
 	headerTitle: {
 		fontFamily: fontFamily.semiBold,
@@ -70,10 +74,10 @@ export const s = StyleSheet.create({
 	},
 	summaryBody: {
 		flex: 1,
-		gap: 16,
-		height: "auto",
-		padding: 8,
+		gap: 24,
 		flexDirection: "column",
+		justifyContent: "flex-start",
+		alignItems: "flex-start",
 	},
 
 	summaryBodyTitle: {
@@ -82,11 +86,15 @@ export const s = StyleSheet.create({
 	},
 
 	summaryBodyContainer: {
-		flex: 1,
+		//flex: 1,
 		gap: 8,
-		height: "auto",
-		maxHeight: 120,
+		// height: "auto",
+		// maxHeight: 120,
 		flexDirection: "column",
+		justifyContent: "flex-start",
+		alignItems: "center",
+		alignSelf: "flex-start",
+		// flexGrow: 1,
 	},
 
 	summaryBodyHeader: {
@@ -114,14 +122,15 @@ export const s = StyleSheet.create({
 	summaryBodyHeaderSubTitleDate: {
 		fontSize: 12,
 		color: colors.zinc[400],
-
 		fontFamily: fontFamily.regular,
 	},
 
 	summarys: {
 		gap: 8,
-		flex: 1,
 		flexDirection: "column",
+		alignSelf: "stretch",
+		justifyContent: "flex-start",
+		alignItems: "flex-start",
 	},
 	summary: {
 		gap: 4,

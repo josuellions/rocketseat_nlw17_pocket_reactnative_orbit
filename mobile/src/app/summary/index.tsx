@@ -15,51 +15,26 @@ import { s } from "./styles";
 
 import { api } from "@/services/api";
 import { Loading } from "@/components/loading";
+import { useQuery } from "@tanstack/react-query";
+import { getSummary } from "@/http/get-summary";
 
 dayjs.locale(ptBR);
 
 export default function Summary() {
-	type GoalsPerDayProps = Record<
-		string,
-		{
-			id: string;
-			title: string;
-			completedAt: string;
-		}[]
-	>;
-
-	interface SummaryProps {
-		completed: number;
-		total: number;
-		goalsPerDay: GoalsPerDayProps;
-	}
-
-	const [summarys, setSummarys] = useState<SummaryProps | null>(null);
 	const firstDayOfWeek = dayjs().startOf("week").format("D MMM");
 	const lastDayOfWeek = dayjs().endOf("week").format("D MMM");
 
-	async function fetchSummarys() {
-		try {
-			const response = await api.get("/summary");
+	const { data } = useQuery({
+		queryKey: ["summary"],
+		queryFn: getSummary,
+		staleTime: 1000 * 60, //60 segundos
+	});
 
-			setSummarys(response.data.summary);
-		} catch (error) {
-			console.log(error);
-			Alert.alert("Summary", "Não foi possível carregar as summary's!");
-		}
-	}
-
-	useEffect(() => {
-		fetchSummarys();
-	}, []);
-
-	if (!summarys) {
+	if (!data) {
 		return <Loading />;
 	}
 
-	const completePercentage = Math.round(
-		(summarys.completed * 100) / summarys.total,
-	);
+	const completePercentage = Math.round((data.completed * 100) / data.total);
 	return (
 		<View style={s.container}>
 			<View style={s.header}>
@@ -85,9 +60,9 @@ export default function Summary() {
 				<View style={s.bodyHeaderContainer}>
 					<View style={s.bodyContainerText}>
 						<Text style={s.bodyHeaderText}>Você completou</Text>
-						<Text style={s.bodyTextQuantidade}> {summarys.completed} </Text>
+						<Text style={s.bodyTextQuantidade}> {data.completed} </Text>
 						<Text style={s.bodyHeaderText}>de</Text>
-						<Text style={s.bodyTextQuantidade}> {summarys.total} </Text>
+						<Text style={s.bodyTextQuantidade}> {data.total} </Text>
 						<Text style={s.bodyHeaderText}> metas nessa semana.</Text>
 					</View>
 
@@ -101,7 +76,7 @@ export default function Summary() {
 				<View style={s.summaryBody}>
 					<Text style={s.summaryBodyTitle}>Sua semana</Text>
 
-					{Object.entries(summarys.goalsPerDay).map(([date, goals]) => (
+					{Object.entries(data.goalsPerDay).map(([date, goals]) => (
 						<View key={String(date)} style={s.summaryBodyContainer}>
 							<View style={s.summaryBodyHeader}>
 								<View style={s.summaryBodyHeaderTitle}>

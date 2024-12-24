@@ -1,25 +1,33 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { Plus } from "lucide-react-native";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { s } from "./styles";
 import { ButtonOutline } from "../ui/button-outline";
-import { Plus } from "lucide-react-native";
+
+import { getPendingGoals } from "@/http/get-pending-goals";
+
+import { Loading } from "../loading";
 
 export default function PendingGoals() {
-	const pendings = [
-		"Acordar cedo",
-		"Me exercitar",
-		"Meditar",
-		"Tomar Água a cada 30min",
-		"Não usar celular quando for dormir",
-		"Evitar tomar café depois das 19h",
-	];
+	//const queryClient = useQueryClient();
+
+	const { data } = useQuery({
+		queryKey: ["pending-goals"],
+		queryFn: getPendingGoals,
+		staleTime: 1000 * 60, //60 segundos
+	});
+
+	if (!data) {
+		return <Loading />;
+	}
 
 	return (
 		<View style={s.container}>
-			{pendings.map((pending, index) => (
-				<ButtonOutline key={String(index)}>
+			{data.map((goal) => (
+				<ButtonOutline key={goal.id}>
 					<ButtonOutline.Icon icon={Plus} />
-					<ButtonOutline.Title>{pending}</ButtonOutline.Title>
+					<ButtonOutline.Title>{goal.title}</ButtonOutline.Title>
 				</ButtonOutline>
 			))}
 		</View>

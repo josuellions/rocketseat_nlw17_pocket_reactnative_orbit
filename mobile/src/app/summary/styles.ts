@@ -81,9 +81,12 @@ export const s = StyleSheet.create({
 		justifyContent: "flex-start",
 		alignItems: "flex-start",
 		alignSelf: "stretch",
+		paddingBottom: 28,
 	},
 	summaryBodyScroll: {
 		gap: 24,
+		paddingBottom: 168,
+		zIndex: 1,
 	},
 
 	summaryBodyTitle: {

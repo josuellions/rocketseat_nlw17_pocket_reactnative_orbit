@@ -30,20 +30,6 @@ export const s = StyleSheet.create({
 		color: colors.zinc[400],
 		textAlign: "left",
 	},
-	containerInput: {
-		height: 48,
-		width: "100%",
-		borderWidth: 1,
-		//backgroundColor: colors.zinc[950],
-		borderColor: colors.zinc[400],
-		borderRadius: 8,
-		flexDirection: "row",
-		alignItems: "center",
-		padding: 8,
-	},
-	textInput: {
-		color: colors.zinc[400],
-	},
 	containerGoal: {
 		height: 68,
 		width: "100%",

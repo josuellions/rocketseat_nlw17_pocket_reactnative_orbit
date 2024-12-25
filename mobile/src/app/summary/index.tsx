@@ -1,10 +1,9 @@
 import { View, Text, Image, ScrollView, Dimensions } from "react-native";
+import { Plus, CheckCircleIcon, ChevronDown } from "lucide-react-native";
 import dayjs from "dayjs";
 import ptBR from "dayjs/locale/pt-br";
 
 import { Button } from "@/components/ui/button";
-import { router } from "expo-router";
-import { Plus, CheckCircleIcon } from "lucide-react-native";
 import ProgressBar from "@/components/ui/progress-bar";
 import Separator from "@/components/ui/separator";
 import PendingGoals from "@/components/pending-goals";
@@ -16,12 +15,14 @@ import { Loading } from "@/components/loading";
 import { useQuery } from "@tanstack/react-query";
 import { getSummary } from "@/http/get-summary";
 import { CreateGoal } from "@/components/create-goal";
+import { useState } from "react";
 
 dayjs.locale(ptBR);
 
 export default function Summary() {
 	const firstDayOfWeek = dayjs().startOf("week").format("D MMM");
 	const lastDayOfWeek = dayjs().endOf("week").format("D MMM");
+	const [createGoal, setCreateGoal] = useState(false);
 
 	const { data } = useQuery({
 		queryKey: ["summary"],
@@ -49,10 +50,12 @@ export default function Summary() {
 				<Button
 					isLoading={false}
 					style={s.buttonContainer}
-					onPress={() => router.navigate("/summary")}
+					onPress={() => setCreateGoal(!createGoal)}
 				>
-					<Button.Icon icon={Plus} />
-					<Button.Title>Cadastrar meta</Button.Title>
+					<Button.Icon icon={!createGoal ? Plus : ChevronDown} />
+					<Button.Title>
+						{!createGoal ? "Cadastrar meta" : "Fechar cadastro"}
+					</Button.Title>
 				</Button>
 			</View>
 
@@ -147,7 +150,7 @@ export default function Summary() {
 				</View>
 			</View>
 
-			<CreateGoal />
+			<CreateGoal isCreateGoal={createGoal} />
 		</View>
 	);
 }

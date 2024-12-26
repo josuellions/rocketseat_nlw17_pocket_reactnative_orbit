@@ -122,10 +122,10 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
 						defaultValue={""}
 						render={({ field }) => (
 							<Input
-								autoFocus
+								// autoFocus
 								onChangeText={field.onChange}
 								// value={String(field.value)}
-								{...register("title")}
+								// {...register("title")}
 								placeholder="Praticar exercícios, meditar, etc..."
 							/>
 						)}

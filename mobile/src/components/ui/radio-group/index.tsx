@@ -4,6 +4,7 @@ import {
 	Text,
 	TouchableOpacity,
 	type TouchableOpacityProps,
+	type GestureResponderEvent,
 } from "react-native";
 
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
@@ -18,6 +19,7 @@ type RadioButtonProps = TouchableOpacityProps & {
 	amount: number;
 	selected: boolean;
 	onPress: (amount: number) => void;
+	//onPress: (event: GestureResponderEvent) => void;
 };
 
 function Button({
@@ -45,11 +47,13 @@ function Button({
 	);
 }
 
-// type RadioGroupProps {
-// 	option: [],
-// 	value: number,
-// 	onChange: ,
-// }
+type RadioGroupProps = TouchableOpacityProps & {
+	title: string;
+	amount: number;
+	selected: boolean;
+	options: RadioButtonProps[];
+	onChange: (amount: number) => void;
+};
 
 function RadioGroup({
 	options,
@@ -64,7 +68,7 @@ function RadioGroup({
 			data={options}
 			key={amount}
 			showsVerticalScrollIndicator={false}
-			keyExtractor={(item) => String(item.amount)}
+			keyExtractor={(item: RadioButtonProps) => String(item.amount)}
 			renderItem={({ item }) => (
 				<Button
 					key={amount}
@@ -81,3 +85,5 @@ function RadioGroup({
 }
 
 export { RadioGroup };
+
+//1284 x2778

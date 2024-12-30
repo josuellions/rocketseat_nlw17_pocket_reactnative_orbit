@@ -2,15 +2,14 @@ import { FlatList, View, Text } from 'react-native'
 import { Plus } from 'lucide-react-native'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { s } from './styles'
-import { ButtonOutline } from '../ui/button-outline'
+import { ButtonOutline } from './ui/button-outline'
 
-import { Loading } from '../loading'
+import { Loading } from './loading'
 
 import { getPendingGoals } from '@/http/get-pending-goals'
 import { createGoalCompletion } from '@/http/create-goal-completion'
 
-export default function PendingGoals() {
+export function PendingGoals() {
   const queryClient = useQueryClient()
 
   const { data } = useQuery({
@@ -31,20 +30,12 @@ export default function PendingGoals() {
   }
 
   return (
-    // <View style={s.container}>
-    // 	{data.map((goal) => (
-    // 		<ButtonOutline key={goal.id}>
-    // 			<ButtonOutline.Icon icon={Plus} />
-    // 			<ButtonOutline.Title>{goal.title}</ButtonOutline.Title>
-    // 		</ButtonOutline>
-    // 	))}
-    // </View>
-    <View style={s.container}>
+    <View>
       <FlatList
         data={data}
         horizontal
         keyExtractor={item => item.id}
-        contentContainerStyle={s.content}
+        contentContainerStyle={{ alignItems: 'center', gap: 18 }}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <ButtonOutline

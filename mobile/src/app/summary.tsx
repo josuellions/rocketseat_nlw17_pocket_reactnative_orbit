@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { View, Text, Image, ScrollView, Dimensions } from 'react-native'
-import { Plus, CheckCircleIcon, ChevronDown } from 'lucide-react-native'
+import { Plus, CheckCircle2Icon, ChevronDown } from 'lucide-react-native'
 import dayjs from 'dayjs'
 import ptBR from 'dayjs/locale/pt-br'
 
@@ -118,7 +118,7 @@ export default function Summary() {
                         className="flex flex-row gap-2 mb-2"
                         key={String(index)}
                       >
-                        <CheckCircleIcon size={16} color={colors.violet[600]} />
+                        <CheckCircle2Icon size={16} color={colors.pink[500]} />
                         <Text className="text-zinc-400 font-normal text-sm">
                           Você completou
                         </Text>

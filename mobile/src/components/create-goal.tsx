@@ -1,13 +1,16 @@
 import React, { useMemo, useRef, useState } from 'react'
+import { View, Text, useWindowDimensions, Alert } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
-import { View, Text, useWindowDimensions } from 'react-native'
-import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
+import BottomSheet from '@gorhom/bottom-sheet'
 import { Save } from 'lucide-react-native'
 
+import { number, z } from 'zod'
+
+import { RadioGroup } from '@/components/ui/radio-group'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { RadioGroup } from '@/components/ui/radio-group'
 
 import { createGoal } from '@/http/create-goal'
 
@@ -17,20 +20,25 @@ interface DayWeekProps {
   icon: string
 }
 
-interface createGoalForm {
-  title: string
-  desiredWeeklyFrequency: number
-}
-
 interface GoalProps {
   isCreateGoal: boolean
 }
 
+const createGoalForm = z.object({
+  title: z.string().min(1, 'Informe a atividade que deseja cadastrar!'),
+  desiredWeeklyFrequency: z.coerce.number().min(1).max(7),
+})
+
+type createGoalForm = z.infer<typeof createGoalForm>
+
 export function CreateGoal({ isCreateGoal }: GoalProps) {
   const queryClient = useQueryClient()
-  const { control, register, handleSubmit, reset } = useForm<createGoalForm>()
   const dimensions = useWindowDimensions()
   const bottomSheetRef = useRef<BottomSheet>(null)
+  const { control, register, handleSubmit, formState, reset } =
+    useForm<createGoalForm>({
+      resolver: zodResolver(createGoalForm),
+    })
 
   const limitMaxTop = 128
 
@@ -88,9 +96,9 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
     queryClient.invalidateQueries({ queryKey: ['pending-goals'] })
     queryClient.invalidateQueries({ queryKey: ['summary'] })
 
-    data.title = ''
-    data.desiredWeeklyFrequency = 1
-    //reset();
+    Alert.alert('Success', `Meta "${data.title}" foi criada com sucesso!`)
+
+    reset()
   }
 
   const [selectedValue, setSelectedValue] = useState(1)
@@ -119,13 +127,21 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
               control={control}
               defaultValue={''}
               render={({ field }) => (
-                <Input
-                  // autoFocus
-                  onChangeText={field.onChange}
-                  // value={String(field.value)}
-                  // {...register("title")}
-                  placeholder="Praticar exercícios, meditar, etc..."
-                />
+                <>
+                  <Input
+                    id="title"
+                    onChangeText={field.onChange}
+                    value={String(field.value)}
+                    {...register('title')}
+                    placeholder="Praticar exercícios, meditar, etc..."
+                  />
+
+                  {formState.errors.title && (
+                    <Text className="text-red-500 text-sm">
+                      {formState.errors.title.message}
+                    </Text>
+                  )}
+                </>
               )}
             />
 
@@ -144,8 +160,9 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
               <RadioGroup
                 options={daysWeek}
                 amount={selectedValue}
-                //onValueChange={field.onChange}
+                onValueChange={field.onChange}
                 value={String(field.value)}
+                snapPoints={snapPoints}
                 onChange={(amount: number) => [
                   field.onChange(amount),
                   setSelectedValue(amount),

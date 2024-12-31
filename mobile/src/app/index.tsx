@@ -1,8 +1,15 @@
-import { EmptyGoals } from "@/components/empty-goals";
-import { router } from "expo-router";
-import Summary from "./summary";
+import { EmptyGoals } from '@/components/empty-goals'
+
+import Summary from './summary'
+import { getSummary } from '@/http/get-summary'
+import { useQuery } from '@tanstack/react-query'
 
 export default function Index() {
-	const summaryTotal: number = 0;
-	return <>{summaryTotal > 0 ? <Summary /> : <EmptyGoals />}</>;
+  const { data } = useQuery({
+    queryKey: ['summary'],
+    queryFn: getSummary,
+    staleTime: 1000 * 60, //60 segundos
+  })
+
+  return <>{data && data.total > 0 ? <Summary /> : <EmptyGoals />}</>
 }

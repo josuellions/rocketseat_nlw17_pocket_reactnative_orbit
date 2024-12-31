@@ -14,16 +14,18 @@ Utilizando as tecnologias:
 - TypeScript,
 - Expo Go
 - Lucide react native,
-
---
-
-<!-- - TanStack Query
+- React Native Bottom Sheet
+- TanStack Query
 - React hook form,
 - Tailwind CSS,
-- Radix
 - Biome,
+- Dayjs 
 - ZOD
-- Dayjs -->
+--
+
+<!-- 
+- Radix
+-->
 
 <br/>
 

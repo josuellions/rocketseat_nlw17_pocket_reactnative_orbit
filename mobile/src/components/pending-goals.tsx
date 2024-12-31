@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { ButtonOutline } from './ui/button-outline'
 
-import { Loading } from './loading'
+import { Loading } from '@/components/ui/loading'
 
 import { getPendingGoals } from '@/http/get-pending-goals'
 import { createGoalCompletion } from '@/http/create-goal-completion'

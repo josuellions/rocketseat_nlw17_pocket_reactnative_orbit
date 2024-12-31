@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { View, Text, Image, ScrollView, Dimensions } from 'react-native'
-import { Plus, CheckCircle2Icon, ChevronDown } from 'lucide-react-native'
+import { Plus, CheckCircle2Icon } from 'lucide-react-native'
 import dayjs from 'dayjs'
 import ptBR from 'dayjs/locale/pt-br'
 
 import { Button } from '@/components/ui/button'
-import { Loading } from '@/components/loading'
+import { Loading } from '@/components/ui/loading'
 import { useQuery } from '@tanstack/react-query'
 import { getSummary } from '@/http/get-summary'
 import { Separator } from '@/components/ui/separator'

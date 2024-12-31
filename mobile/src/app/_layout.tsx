@@ -12,7 +12,7 @@ import {
 } from '@expo-google-fonts/rubik'
 
 import { colors } from '@/styles/colors'
-import { Loading } from '@/components/loading'
+import { Loading } from '@/components/ui/loading'
 import React from 'react'
 
 export default function Layout() {

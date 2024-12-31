@@ -21,11 +21,6 @@ Utilizando as tecnologias:
 - Biome,
 - Dayjs 
 - ZOD
---
-
-<!-- 
-- Radix
--->
 
 <br/>
 
@@ -80,62 +75,52 @@ Utilizando as tecnologias:
   ┃ ┃ ┣ 📂 app
   ┃ ┃ ┃ ┣ 📜 _layout.tsx
   ┃ ┃ ┃ ┗ 📜 index.tsx
+  ┃ ┃ ┃ ┗ 📜 summary.tsx
   ┃ ┃ ┃
   ┃ ┃ ┣ 📂 assets
+  ┃ ┃ ┃ ┣ 📜 icon.svg
   ┃ ┃ ┃ ┣ 📜 lets-start-illustration.svg
   ┃ ┃ ┃ ┗ 📜 logo-in-orbit.svg
   ┃ ┃ ┃
   ┃ ┃ ┣ 📂 components
   ┃ ┃ ┃ ┣ 📂 ui
+  ┃ ┃ ┃ ┃ ┣ 📜 button-outline.tsx
   ┃ ┃ ┃ ┃ ┣ 📜 button.tsx
   ┃ ┃ ┃ ┃ ┣ 📜 dialog.tsx
   ┃ ┃ ┃ ┃ ┣ 📜 input.tsx
   ┃ ┃ ┃ ┃ ┣ 📜 label.tsx
-  ┃ ┃ ┃ ┃ ┣ 📜 outline-button.tsx
+  ┃ ┃ ┃ ┃ ┣ 📜 loading.tsx
   ┃ ┃ ┃ ┃ ┣ 📜 progress-bar.tsx
   ┃ ┃ ┃ ┃ ┣ 📜 radio-group.tsx
   ┃ ┃ ┃ ┃ ┗ 📜 separator.tsx
   ┃ ┃ ┃ ┃
-  ┃ ┃ ┃ ┣ 📂 loading
-  ┃ ┃ ┃ ┃ ┣ 📜 styles.ts
-  ┃ ┃ ┃ ┃ ┗ 📜 index.tsx
-  ┃ ┃ ┃ ┃
-  ┃ ┃ ┃ ┣ 📂 create-goal.tsx
-  ┃ ┃ ┃ ┃ ┣ 📜 styles.ts
-  ┃ ┃ ┃ ┃ ┗ 📜 index.tsx
-  ┃ ┃ ┃ ┃
-  ┃ ┃ ┃ ┣ 📂 empty-goal.tsx
-  ┃ ┃ ┃ ┃ ┣ 📜 styles.ts
-  ┃ ┃ ┃ ┃ ┗ 📜 index.tsx
-  ┃ ┃ ┃ ┃
-  ┃ ┃ ┃ ┣ 📂 pending-goals.tsx
-  ┃ ┃ ┃ ┃ ┣ 📜 styles.ts
-  ┃ ┃ ┃ ┃ ┗ 📜 index.tsx
-  ┃ ┃ ┃ ┃
-  ┃ ┃ ┃ ┗ 📂 summary.tsx
-  ┃ ┃ ┃   ┣ 📜 styles.ts
-  ┃ ┃ ┃   ┗ 📜 index.tsx
+  ┃ ┃ ┃ ┣ 📜 create-goal.tsx
+  ┃ ┃ ┃ ┣ 📜 empty-goal.tsx
+  ┃ ┃ ┃ ┗ 📜 pending-goals.tsx
   ┃ ┃ ┃
-  ┃ ┃ ┣ 📂 styles
-  ┃ ┃ ┃ ┣ 📜 color.ts
-  ┃ ┃ ┃ ┣ 📜 font-family.ts
-  ┃ ┃ ┃ ┗ 📜 theme.ts
+  ┃ ┃ ┣ 📂 http
+  ┃ ┃ ┃ ┣ 📜 create-goal-completion.ts
+  ┃ ┃ ┃ ┣ 📜 create-goal.ts
+  ┃ ┃ ┃ ┣ 📜 get-pending-goal.ts
+  ┃ ┃ ┃ ┗ 📜 get-summary.ts
   ┃ ┃ ┃
-  ┃ ┃ ┗ 📂 http
-  ┃ ┃   ┣ 📜 create-goal-completion.ts
-  ┃ ┃   ┣ 📜 create-goal.ts
-  ┃ ┃   ┣ 📜 get-pending-goal.ts
-  ┃ ┃   ┗ 📜 get-summary.ts
+  ┃ ┃ ┣ 📂 services
+  ┃ ┃ ┃ ┗ 📜 api.ts
+  ┃ ┃ ┃
+  ┃ ┃ ┗ 📂 styles
+  ┃ ┃   ┣ 📜 color.ts
+  ┃ ┃   ┣ 📜 font-family.ts
+  ┃ ┃   ┣ 📜 global.css
+  ┃ ┃   ┗ 📜 theme.ts
   ┃ ┃
   ┃ ┣ 📜 .gitignore
-  ┃ ┣ 📜 biome.json
   ┃ ┣ 📜 app.json
+  ┃ ┣ 📜 babel.config.js
+  ┃ ┣ 📜 biome.json
   ┃ ┣ 📜 expo-env.d.ts
   ┃ ┣ 📜 package-lock.json
   ┃ ┣ 📜 package.json
-  ┃ ┣ 📜 postcss.config.js
   ┃ ┣ 📜 tailwind.config.json
-  ┃ ┣ 📜 tsconfig.app.json
   ┃ ┗ 📜 tsconfig.json
   ┃
   ┗ 📜 README.md

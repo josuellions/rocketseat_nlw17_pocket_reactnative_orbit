@@ -6,13 +6,15 @@ import { useQueryClient } from '@tanstack/react-query'
 import BottomSheet from '@gorhom/bottom-sheet'
 import { Save } from 'lucide-react-native'
 
-import { number, z } from 'zod'
+import { z } from 'zod'
 
 import { RadioGroup } from '@/components/ui/radio-group'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 import { createGoal } from '@/http/create-goal'
+
+import { colors } from '@/styles/theme'
 
 interface DayWeekProps {
   amount: number
@@ -106,22 +108,40 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
   return (
     <BottomSheet
       ref={bottomSheetRef}
+      //index={-1} //define aberto ou fechado
       snapPoints={[snapPoints.min, snapPoints.max]}
       //handleIndicatorStyle={s.indicator}
       //backgroundStyle={s.container}
       //keyboardBlurBehavior="restore"
       enableContentPanningGesture={false}
       enableOverDrag={false}
+      backgroundStyle={{
+        backgroundColor: colors.zinc[950],
+        borderColor: colors.zinc[100],
+        borderWidth: 2,
+      }}
+      handleStyle={{
+        backgroundColor: colors.zinc[100],
+        borderColor: colors.zinc[100],
+        borderWidth: 2,
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        borderBottomWidth: 0,
+      }}
     >
       <View className="flex-1 flex-col px-4 py-2.5">
         <View className="flex flex-col h-56">
           <View className="flex-col justify-between h-52">
-            <Text className="text-2xl font-semiBold">Cadastrar meta</Text>
+            <Text className="text-2xl font-semiBold text-zinc-100">
+              Cadastrar meta
+            </Text>
             <Text className="text-md font-normal text-zinc-400">
               Adicione atividades que te fazem bem e que você {'\n'}quer
               continuar praticando toda semana.
             </Text>
-            <Text className="text-lg font-semiBold">Qual atividade?</Text>
+            <Text className="text-lg font-semiBold text-zinc-100">
+              Qual atividade?
+            </Text>
             <Controller
               name={'title'}
               control={control}
@@ -145,7 +165,7 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
               )}
             />
 
-            <Text className="text-lg font-semiBold">
+            <Text className="text-lg font-semiBold text-zinc-100">
               Quantas vezes na Semana?
             </Text>
           </View>

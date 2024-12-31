@@ -5,7 +5,7 @@ import {
   type TouchableOpacityProps,
 } from 'react-native'
 
-import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet'
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 
 import { CheckCircle2, Circle } from 'lucide-react-native'
 import { colors } from '@/styles/colors'
@@ -42,7 +42,7 @@ function Button({
       ) : (
         <Circle size={16} color={colors.zinc[500]} />
       )}
-      <Text className="text-md">{title}</Text>
+      <Text className="text-md text-zinc-100">{title}</Text>
       <Text className="text-xl">{icon}</Text>
     </TouchableOpacity>
   )

@@ -17,14 +17,14 @@ Utilizando as tecnologias:
 - React Native Bottom Sheet
 - TanStack Query
 - React hook form,
+- Tailwind CSS,
+- Biome,
 - Dayjs 
+- ZOD
 --
 
 <!-- 
-- Tailwind CSS,
 - Radix
-- Biome,
-- ZOD
 -->
 
 <br/>

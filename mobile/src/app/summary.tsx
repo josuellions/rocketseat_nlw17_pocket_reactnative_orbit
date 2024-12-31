@@ -47,16 +47,10 @@ export default function Summary() {
           <Button
             size="sm"
             isLoading={false}
-            onPress={() => setCreateGoal(!createGoal)}
+            onPress={() => setCreateGoal(true)}
           >
-            <Button.Icon
-              icon={!createGoal ? Plus : ChevronDown}
-              className="text-zinc-100"
-              size={16}
-            />
-            <Button.Title>
-              {!createGoal ? 'Cadastrar meta' : 'Fechar cadastro'}
-            </Button.Title>
+            <Button.Icon icon={Plus} className="text-zinc-100" size={16} />
+            <Button.Title>Cadastrar meta</Button.Title>
           </Button>
         </View>
 
@@ -140,7 +134,11 @@ export default function Summary() {
           </View>
         </View>
       </View>
-      <CreateGoal isCreateGoal={createGoal} />
+      <CreateGoal
+        isCreateGoal={createGoal}
+        setCreateGoal={setCreateGoal}
+        isOpen={0}
+      />
     </>
   )
 }

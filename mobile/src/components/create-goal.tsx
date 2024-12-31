@@ -1,10 +1,16 @@
-import React, { useMemo, useRef, useState } from 'react'
-import { View, Text, useWindowDimensions, Alert } from 'react-native'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  View,
+  Text,
+  useWindowDimensions,
+  Alert,
+  TouchableOpacity,
+} from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
 import BottomSheet from '@gorhom/bottom-sheet'
-import { Save } from 'lucide-react-native'
+import { Save, X } from 'lucide-react-native'
 
 import { z } from 'zod'
 
@@ -23,7 +29,9 @@ interface DayWeekProps {
 }
 
 interface GoalProps {
+  isOpen: number
   isCreateGoal: boolean
+  setCreateGoal: (item: boolean) => void
 }
 
 const createGoalForm = z.object({
@@ -33,19 +41,24 @@ const createGoalForm = z.object({
 
 type createGoalForm = z.infer<typeof createGoalForm>
 
-export function CreateGoal({ isCreateGoal }: GoalProps) {
+export function CreateGoal({
+  isCreateGoal,
+  setCreateGoal,
+  isOpen = -1,
+}: GoalProps) {
+  const limitMaxTop = 128
   const queryClient = useQueryClient()
   const dimensions = useWindowDimensions()
   const bottomSheetRef = useRef<BottomSheet>(null)
+  const [selectedValue, setSelectedValue] = useState(1)
+
   const { control, register, handleSubmit, formState, reset } =
     useForm<createGoalForm>({
       resolver: zodResolver(createGoalForm),
     })
 
-  const limitMaxTop = 128
-
   const snapPoints = {
-    min: isCreateGoal ? dimensions.height - limitMaxTop : limitMaxTop,
+    min: limitMaxTop,
     max: dimensions.height - limitMaxTop,
   }
 
@@ -95,6 +108,8 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
       desiredWeeklyFrequency: data.desiredWeeklyFrequency,
     })
 
+    bottomSheetRef.current?.collapse()
+
     queryClient.invalidateQueries({ queryKey: ['pending-goals'] })
     queryClient.invalidateQueries({ queryKey: ['summary'] })
 
@@ -103,12 +118,29 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
     reset()
   }
 
-  const [selectedValue, setSelectedValue] = useState(1)
+  function handleOpen(isExpand: boolean) {
+    reset()
+    setCreateGoal(false)
+
+    if (isExpand) {
+      bottomSheetRef.current?.expand()
+      return
+    }
+
+    bottomSheetRef.current?.collapse()
+  }
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (isCreateGoal) {
+      handleOpen(true)
+    }
+  }, [isCreateGoal])
 
   return (
     <BottomSheet
       ref={bottomSheetRef}
-      //index={-1} //define aberto ou fechado
+      index={Number(isOpen)} //define aberto ou fechado
       snapPoints={[snapPoints.min, snapPoints.max]}
       //handleIndicatorStyle={s.indicator}
       //backgroundStyle={s.container}
@@ -132,9 +164,14 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
       <View className="flex-1 flex-col px-4 py-2.5">
         <View className="flex flex-col h-56">
           <View className="flex-col justify-between h-52">
-            <Text className="text-2xl font-semiBold text-zinc-100">
-              Cadastrar meta
-            </Text>
+            <View className="flex flex-row justify-between items-center mr-1">
+              <Text className="text-2xl font-semiBold text-zinc-100">
+                Cadastrar meta
+              </Text>
+              <TouchableOpacity onPress={() => handleOpen(false)}>
+                <X size={24} color={colors.zinc[400]} />
+              </TouchableOpacity>
+            </View>
             <Text className="text-md font-normal text-zinc-400">
               Adicione atividades que te fazem bem e que você {'\n'}quer
               continuar praticando toda semana.
@@ -154,6 +191,7 @@ export function CreateGoal({ isCreateGoal }: GoalProps) {
                     value={String(field.value)}
                     {...register('title')}
                     placeholder="Praticar exercícios, meditar, etc..."
+                    className="text-zinc-100"
                   />
 
                   {formState.errors.title && (

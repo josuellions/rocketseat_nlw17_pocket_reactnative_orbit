@@ -12,7 +12,7 @@ const Input = forwardRef<TextInput, CustomInputProps>((rest, ref) => {
   return (
     <TextInput
       className={clsx(
-        'flex px-4 h-12 text-black border border-zinc-200 rounded-lg  outline-none text-sm',
+        'flex px-4 h-12 text-black border border-zinc-800 rounded-lg  outline-none text-sm',
         isFocused && 'border-2 border-pink-500'
       )}
       placeholderTextColor={colors.zinc[400]}

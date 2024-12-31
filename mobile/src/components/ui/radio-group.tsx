@@ -31,8 +31,8 @@ function Button({
     <TouchableOpacity
       activeOpacity={0.8}
       className={clsx(
-        'flex flex-row justify-between items-center mb-4 py-2 px-2 border border-zinc-200 rounded-lg h-12',
-        selected && 'border-pink-500 border-2 '
+        'flex flex-row justify-between items-center mb-4 py-2 px-2 border border-zinc-800 rounded-lg h-12',
+        selected && 'border-pink-500 border-2 bg-zinc-800'
       )}
       onPress={() => onPress(amount)}
       {...rest}
@@ -63,6 +63,7 @@ function RadioGroup({
   onChange,
   selected,
   ...rest
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 }: any) {
   return (
     <BottomSheetFlatList

@@ -11,5 +11,5 @@ export default function Index() {
     staleTime: 1000 * 60, //60 segundos
   })
 
-  return <>{data && data.total > 100 ? <Summary /> : <EmptyGoals />}</>
+  return <>{data && data.total > 0 ? <Summary /> : <EmptyGoals />}</>
 }

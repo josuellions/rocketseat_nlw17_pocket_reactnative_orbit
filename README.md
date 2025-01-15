@@ -26,6 +26,8 @@ Utilizando as tecnologias:
 
 #### Projeto: in.orbit - Rocketseat NLW17 Pocket Mobile React Native
 
+![iorbit_mobile_01](https://github.com/user-attachments/assets/bf8ad73b-5ad4-4e04-9e18-ab902ea3abf3)
+
 </br>
 
 #### 📋 Sumário
